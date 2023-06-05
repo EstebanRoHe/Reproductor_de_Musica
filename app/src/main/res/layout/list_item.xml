@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#2F3030">
+    android:layout_height="wrap_content">
+    <!--android:background="#2F3030"-->
 
     <ImageView
         android:id="@+id/imagen"
@@ -18,12 +18,11 @@
 
     <TextView
         android:id="@+id/nombre"
-        android:layout_width="260dp"
-        android:layout_height="39dp"
+        android:layout_width="254dp"
+        android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text=""
         android:textColor="#E4D7D7"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/imagen"
@@ -31,8 +30,8 @@
 
     <TextView
         android:id="@+id/album"
-        android:layout_width="260dp"
-        android:layout_height="39dp"
+        android:layout_width="254dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
@@ -44,7 +43,7 @@
 
     <TextView
         android:id="@+id/artista"
-        android:layout_width="260dp"
+        android:layout_width="254dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -55,7 +54,8 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imagen"
-        app:layout_constraintTop_toBottomOf="@+id/album" />
+        app:layout_constraintTop_toBottomOf="@+id/album"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

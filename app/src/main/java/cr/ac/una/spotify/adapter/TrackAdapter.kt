@@ -62,7 +62,7 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
         val negro = Color.rgb(47, 48, 48)
 
         fun bind(track: Track) {
-            itemView.setBackgroundColor(negro)
+          //  itemView.setBackgroundColor(negro)
 
 
             val imageUrl = track.album.images[0].url
@@ -70,9 +70,9 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
 
             }
 
-            nombreTextView.text = track.name
-            albumTextView.text = track.album.name
-            artistaTextView.text = track.album.artists.joinToString(", ") { it.name }
+            nombreTextView.text = "Canción : "+track.name
+            albumTextView.text = "Álbum : "+track.album.name
+            artistaTextView.text = "Artista : " + track.album.artists.joinToString(", ") { it.name }
         }
     }
 }

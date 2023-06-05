@@ -1,11 +1,13 @@
 package cr.ac.una.spotify
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -65,6 +67,9 @@ class FirstFragment : Fragment() {
 
             val cancion = txtCancion.text.toString()
             spotifyViewModel.searchTracks(cancion)
+
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
             spotifyViewModel.traks.observe(viewLifecycleOwner){
                 elementos->
