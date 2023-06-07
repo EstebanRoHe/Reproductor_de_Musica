@@ -13,10 +13,24 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment">
+            <argument
+                android:name="track"
+                app:argType="cr.ac.una.spotify.entity.Track"/>
+        </action>
+
+        <action
+            android:id="@+id/action_FirstFragment_to_ThirdFragment"
+            app:destination="@id/ThirdFragment" >
+            <argument
+                android:name="track"
+                app:argType="cr.ac.una.spotify.entity.Track"/>
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
+
         android:name="cr.ac.una.spotify.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
@@ -24,5 +38,18 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="cr.ac.una.spotify.ThirdFragment"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_third">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_ThirdFragment"
+            app:destination="@id/FirstFragment" />
+
+
     </fragment>
 </navigation>

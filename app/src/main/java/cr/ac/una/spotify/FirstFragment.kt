@@ -33,30 +33,28 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private lateinit var searchButton: Button
+    private lateinit var info: Button
     private lateinit var searchEditText: EditText
     private lateinit var spotifyViewModel : SpotifyViewModel
     private lateinit var tracks :List<Track>
 
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
 
         savedInstanceState: Bundle?
 
     ): View? {
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val txtCancion = view.findViewById<EditText>(R.id.cancion)
-
         val listView = view.findViewById<RecyclerView>(R.id.list_view)
+
         tracks = mutableListOf<Track>()
         val adapter = TrackAdapter(tracks  as ArrayList<Track>)
         listView.adapter = adapter
@@ -67,7 +65,6 @@ class FirstFragment : Fragment() {
 
             val cancion = txtCancion.text.toString()
             spotifyViewModel.searchTracks(cancion)
-
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
@@ -77,9 +74,7 @@ class FirstFragment : Fragment() {
                 tracks = elementos
             }
         }
-
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

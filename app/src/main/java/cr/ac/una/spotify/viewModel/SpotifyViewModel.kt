@@ -62,6 +62,7 @@ class SpotifyViewModel : ViewModel() {
 
                     if (accessToken != null) {
 
+                        //val searchRequest = spotifyService.searchTrack("Bearer $accessToken", query)
                         val searchRequest = spotifyService.searchTrack("Bearer $accessToken", query)
                         searchRequest.enqueue(object : Callback<TrackResponse> {
                             override fun onResponse(
@@ -71,12 +72,15 @@ class SpotifyViewModel : ViewModel() {
                                 if (response.isSuccessful) {
                                     val trackResponse = response.body()
                                     val trackList = mutableListOf<Track>()
+                                    println("!!!!!!!m,lml!+ "+ trackResponse)
                                     if (trackResponse != null && trackResponse.tracks.items.isNotEmpty()) {
+                                        println("!!!!!!!m,lml!+ "+ trackResponse)
                                         for (track in trackResponse!!.tracks.items) {
                                             val cancion = track
                                             cancion?.let{
                                                 trackList.add(it)
                                             }
+
                                             /*
                                             track.album.images.map {
                                                 println(it.url)

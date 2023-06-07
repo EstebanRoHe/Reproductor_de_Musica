@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Image (
-    val url:String
-    ): Parcelable
+data class Genero (
+    val name: String
+): Parcelable

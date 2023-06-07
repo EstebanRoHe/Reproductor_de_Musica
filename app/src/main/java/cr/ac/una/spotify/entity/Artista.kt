@@ -1,5 +1,9 @@
 package cr.ac.una.spotify.entity
 
-class Artista(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Artista(
     val name:String
-)
+): Parcelable

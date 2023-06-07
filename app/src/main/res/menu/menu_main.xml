@@ -2,9 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="cr.ac.una.spotify.MainActivity">
+   
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/album"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/album"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/artista"
+        android:orderInCategory="100"
+        android:title="@string/artista"
         app:showAsAction="never" />
 </menu>

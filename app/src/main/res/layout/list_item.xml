@@ -28,7 +28,7 @@
         app:layout_constraintStart_toEndOf="@+id/imagen"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <!--TextView
         android:id="@+id/album"
         android:layout_width="254dp"
         android:layout_height="40dp"
@@ -39,14 +39,13 @@
         android:textColor="#E4D7D7"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/imagen"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre" /-->
 
     <TextView
         android:id="@+id/artista"
-        android:layout_width="254dp"
-        android:layout_height="39dp"
+        android:layout_width="194dp"
+        android:layout_height="41dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif"
         android:text=""
@@ -54,8 +53,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imagen"
-        app:layout_constraintTop_toBottomOf="@+id/album"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -70,5 +68,24 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top"
         app:constraint_referenced_ids="nombre" />
+
+    <Button
+        android:id="@+id/info"
+        style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+        android:layout_width="41dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#BAE1D8D8"
+        android:text="..."
+        android:textColor="#F4511E"
+        android:textSize="30dp"
+        app:icon="@android:drawable/ic_menu_info_details"
+        app:iconSize="30dp"
+        app:iconTint="#DDD3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/artista"
+        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        app:rippleColor="#B31212" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

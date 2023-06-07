@@ -13,7 +13,8 @@ interface SpotifyService {
         @Field("grant_type") grantType: String
     ): Call<AccessTokenResponse>
 
-    @GET("v1/search?type=track")
+    //@GET("v1/search?type=track")
+    @GET(" v1/me/shows?offset=0&limit=20%22")
     fun searchTrack(
         @Header("Authorization") authorization: String,
         @Query("q") query: String
