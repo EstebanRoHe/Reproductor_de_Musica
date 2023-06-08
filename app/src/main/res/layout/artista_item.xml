@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--android:background="#2F3030"-->
+
+    <ImageView
+        android:id="@+id/imagenTop"
+        android:layout_width="127dp"
+        android:layout_height="143dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nombreAlbumTop"
+        android:layout_width="254dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#E4D7D7"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imagenTop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nombreArtistaTop"
+        android:layout_width="254dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text=""
+        android:textColor="#E4D7D7"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imagenTop"
+        app:layout_constraintTop_toBottomOf="@+id/nombreAlbumTop" />
+
+    <TextView
+        android:id="@+id/popularidadTop"
+        android:layout_width="194dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="sans-serif"
+        android:text=""
+        android:textColor="#E4D7D7"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagenTop"
+        app:layout_constraintTop_toBottomOf="@+id/nombreArtistaTop" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

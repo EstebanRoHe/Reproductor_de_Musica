@@ -57,12 +57,15 @@ class FirstFragment : Fragment() {
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(requireContext())
         spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
-
+        //spotifyViewModel.searchAlbums("0TnOYISbd1XYRBk9myaseg")
         binding.Buscar.setOnClickListener {
 
             val cancion = txtCancion.text.toString()
             spotifyViewModel.searchTracks(cancion)
-            spotifyViewModel.searchAlbums("2256qKBSQdt53T5dz4Kdcs")
+
+            spotifyViewModel.searchTops()   //("0TnOYISbd1XYRBk9myaseg")
+            println("prueba")
+          //  spotifyViewModel.prueba()
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 

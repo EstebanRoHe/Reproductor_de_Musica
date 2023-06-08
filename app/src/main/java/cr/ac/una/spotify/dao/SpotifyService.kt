@@ -1,9 +1,6 @@
 package cr.ac.una.spotify.dao
 
-import cr.ac.una.spotify.entity.AccessTokenResponse
-import cr.ac.una.spotify.entity.AlbumResponse
-import cr.ac.una.spotify.entity.TopResponse
-import cr.ac.una.spotify.entity.TrackResponse
+import cr.ac.una.spotify.entity.*
 import retrofit2.http.*
 import retrofit2.Call
 
@@ -26,16 +23,12 @@ interface SpotifyService {
           @Header("Authorization") authorization: String,
           @Path("albumId") albumId: String
       ): Call<AlbumResponse>
-//I/System.out: !!! Id del artista !!!!! 0iEtIxbK0KxaSlF7G42ZOp, 1URnnhqYAYcrqrcwql10ft
 
-    @GET("v1/artists/{id}/top-tracks")
-    fun searchTop(
-        @Header("Authorization") authorization: String,
-        @Path("id") id: String,
-        @Query("market") market: String
-    ): Call<TopResponse>
-
-
-
+      @GET("v1/artists/{id}/top-tracks")
+      fun searchTop(
+          @Header("Authorization") authorization: String,
+          @Path("id") id: String,
+          @Query("market") market: String
+      ): Call<TopSongsResponse>
 
 }

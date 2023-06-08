@@ -7,5 +7,6 @@ import java.io.Serializable
 data class Track (
     val name: String,
     val album: Album,
-    val uri: String
+    val uri: String,
+    val popularity : Int
     ): Parcelable
