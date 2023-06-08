@@ -71,7 +71,6 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
                                 val bundle = Bundle().apply {
                                     putParcelable("track",track)
                                 }
-                                println("usiiiii : "+track.uri)
                                 itemView.findNavController().navigate(action,bundle)
                                 true
                             }

@@ -48,7 +48,7 @@ class SpotifyViewModel : ViewModel() {
     }
 
 
-    fun searchTops(): LiveData<List<topSong>> {
+    fun searchTops(query: String): LiveData<List<topSong>> {
         val clientId = "f13969da015a4f49bb1f1edef2185d4e"
         val clientSecret = "e3077426f4714315937111d5e82cd918"
         val base64Auth = Base64.encodeToString("$clientId:$clientSecret".toByteArray(), Base64.NO_WRAP)
@@ -70,7 +70,7 @@ class SpotifyViewModel : ViewModel() {
                         val accessToken = accessTokenResponse?.accessToken
 
                         if (accessToken != null) {
-                            val searchRequestAlbum = spotifyService.searchTop("Bearer $accessToken", "0TnOYISbd1XYRBk9myaseg","CA")
+                            val searchRequestAlbum = spotifyService.searchTop("Bearer $accessToken",query ,"CA")
                             searchRequestAlbum.enqueue(object : Callback<TopSongsResponse> {
                                 override fun onResponse(
                                     call: Call<TopSongsResponse>,

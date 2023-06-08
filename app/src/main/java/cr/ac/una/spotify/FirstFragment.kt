@@ -62,10 +62,6 @@ class FirstFragment : Fragment() {
 
             val cancion = txtCancion.text.toString()
             spotifyViewModel.searchTracks(cancion)
-
-            spotifyViewModel.searchTops()   //("0TnOYISbd1XYRBk9myaseg")
-            println("prueba")
-          //  spotifyViewModel.prueba()
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 

@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/nombreAlbumTop"
-        android:layout_width="254dp"
-        android:layout_height="37dp"
+        android:layout_width="229dp"
+        android:layout_height="38dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
@@ -30,8 +30,8 @@
 
     <TextView
         android:id="@+id/nombreArtistaTop"
-        android:layout_width="254dp"
-        android:layout_height="40dp"
+        android:layout_width="229dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
@@ -46,6 +46,7 @@
         android:layout_width="194dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif"
         android:text=""

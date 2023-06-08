@@ -10,5 +10,4 @@ data class Album (
     val artists: List<Artista>,
     val release_date : String,
     val id:String
-    //val genres: List<Genero>
     )  : Parcelable

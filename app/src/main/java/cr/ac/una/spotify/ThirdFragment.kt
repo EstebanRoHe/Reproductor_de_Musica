@@ -37,6 +37,8 @@ class ThirdFragment : Fragment() {
         track?.let {
 
         }
+        //val imagen = track!!.artistas[0].imagen[0].url
+        //println("IMAGEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNN "+imagen)
         spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
 
         val listView = view.findViewById<RecyclerView>(R.id.thirdView)
@@ -46,7 +48,8 @@ class ThirdFragment : Fragment() {
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(requireContext())
         spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
-        spotifyViewModel.searchTops() //("0TnOYISbd1XYRBk9myaseg")
+        var id = track!!.album.artists[0].id
+        spotifyViewModel.searchTops(id.toString()) //("0TnOYISbd1XYRBk9myaseg")
 
 
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

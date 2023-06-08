@@ -1,5 +1,9 @@
 package cr.ac.una.spotify.entity
 
-class TopSongsResponse(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class TopSongsResponse(
     val tracks : List<topSong>
-)
+): Parcelable

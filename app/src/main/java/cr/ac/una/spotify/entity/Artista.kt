@@ -6,5 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Artista(
     val name:String,
-    val id:String
+    val id:String,
+    //val imagenes : List<Image>
 ): Parcelable
