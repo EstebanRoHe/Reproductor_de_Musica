@@ -30,5 +30,19 @@ interface SpotifyService {
           @Path("id") id: String,
           @Query("market") market: String
       ): Call<TopSongsResponse>
+      //v1/artists/{id}
+      @GET("v1/artists/{id}")
+      fun searchArtis(
+          @Header("Authorization") authorization: String,
+          @Path("id") id: String
+      ): Call<ImagenResponse>
 
+
+/*
+    @GET("v1/artists/{id}")
+    fun searchArtist(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String
+    ): Call<Artista>
+*/
 }
