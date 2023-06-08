@@ -32,9 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-    private lateinit var searchButton: Button
-    private lateinit var info: Button
-    private lateinit var searchEditText: EditText
     private lateinit var spotifyViewModel : SpotifyViewModel
     private lateinit var tracks :List<Track>
 
@@ -65,6 +62,7 @@ class FirstFragment : Fragment() {
 
             val cancion = txtCancion.text.toString()
             spotifyViewModel.searchTracks(cancion)
+            spotifyViewModel.searchAlbums("2256qKBSQdt53T5dz4Kdcs")
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 

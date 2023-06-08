@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,8 @@ import cr.ac.una.spotify.adapter.TrackAdapter
 import cr.ac.una.spotify.databinding.FragmentSecondBinding
 import cr.ac.una.spotify.databinding.FragmentThirdBinding
 import cr.ac.una.spotify.entity.Track
+import cr.ac.una.spotify.viewModel.SpotifyViewModel
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -21,6 +24,7 @@ class ThirdFragment : Fragment() {
     private var _binding: FragmentThirdBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private lateinit var spotifyViewModel: SpotifyViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +39,8 @@ class ThirdFragment : Fragment() {
         track?.let {
             showTrackDetails(it)
         }
+        spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
+       // spotifyViewModel.searchTops("0iEtIxbK0KxaSlF7G42ZOp")
     }
     override fun onDestroyView() {
         super.onDestroyView()

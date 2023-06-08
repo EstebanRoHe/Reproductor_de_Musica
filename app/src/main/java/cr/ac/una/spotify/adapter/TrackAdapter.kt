@@ -61,7 +61,6 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
 
         val negro = Color.rgb(47, 48, 48)
         fun bind(track: Track) {
-          //  itemView.setBackgroundColor(negro)
                boton.setOnClickListener {
                     val popupMenu = PopupMenu(itemView.context, boton)
                     popupMenu.inflate(R.menu.menu_main)
@@ -73,7 +72,6 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
                                     putParcelable("track",track)
                                 }
                                 println("usiiiii : "+track.uri)
-                                println("canciones de album "+track.album.uri)
                                 itemView.findNavController().navigate(action,bundle)
                                 true
                             }
@@ -96,7 +94,6 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
             imagenImageView.load(imageUrl) {
             }
             nombreTextView.text = "Canción : "+track.name
-            //albumTextView.text = "Álbum : "+track.album.name
             artistaTextView.text = "Artista : " + track.album.artists.joinToString(", ") { it.name }
         }
     }
