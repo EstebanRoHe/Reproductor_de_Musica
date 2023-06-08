@@ -6,10 +6,10 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".SecondFragment">
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/imagenAlbum"
@@ -21,9 +21,9 @@ tools:context=".SecondFragment">
 
     <TextView
         android:id="@+id/nombreAlbum"
-        android:layout_width="254dp"
+        android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif"
         android:textColor="#E4D7D7"
         android:textSize="16sp"
@@ -33,11 +33,10 @@ tools:context=".SecondFragment">
 
     <TextView
         android:id="@+id/altistaAlbum"
-        android:layout_width="254dp"
+        android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif"
-        android:text=""
         android:textColor="#E4D7D7"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +45,9 @@ tools:context=".SecondFragment">
 
     <TextView
         android:id="@+id/fechaDelAlbum"
-        android:layout_width="254dp"
+        android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif"
         android:textColor="#E4D7D7"
         android:textSize="16sp"
@@ -59,9 +58,9 @@ tools:context=".SecondFragment">
 
     <TextView
         android:id="@+id/genero"
-        android:layout_width="254dp"
+        android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif"
         android:textColor="#E4D7D7"
         android:textSize="16sp"
@@ -71,14 +70,17 @@ tools:context=".SecondFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewFicha"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="394dp"
+        android:layout_height="364dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
-        android:nestedScrollingEnabled="false"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/genero" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

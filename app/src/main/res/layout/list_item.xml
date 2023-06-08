@@ -72,20 +72,20 @@
     <Button
         android:id="@+id/info"
         style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-        android:layout_width="41dp"
-        android:layout_height="40dp"
+        android:layout_width="54dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#BAE1D8D8"
         android:text="..."
-        android:textColor="#F4511E"
+        android:textColor="#FDFDFD"
         android:textSize="30dp"
-        app:icon="@android:drawable/ic_menu_info_details"
         app:iconSize="30dp"
         app:iconTint="#DDD3D3"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/artista"
         app:layout_constraintTop_toBottomOf="@+id/nombre"
-        app:rippleColor="#B31212" />
+        app:rippleColor="#FAF6F6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--app:icon="@android:drawable/ic_menu_info_details"-->

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#A4252525">
     <!--android:background="#2F3030"-->
 
     <ImageView
@@ -55,8 +56,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imagenTop"
         app:layout_constraintTop_toBottomOf="@+id/nombreArtistaTop" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@ import cr.ac.una.spotify.viewModel.SpotifyViewModel
             nombre.text = " Álbum : "+trackAlbum.album.name
             nombreArtista.text  = " Artista : " + trackAlbum.album.artists.joinToString(", ") { it.name }
             fecha.text = " Publicacion : "+trackAlbum.album.release_date
-            genero.text = " Genero : Pop , Reggueton"
+            genero.text = " Género : Egg punk, Noise rock, Pop"
 
 
 
