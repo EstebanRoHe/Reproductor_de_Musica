@@ -14,9 +14,8 @@ android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imagenArtista"
-            android:layout_width="127dp"
-            android:layout_height="143dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="149dp"
+            android:layout_height="127dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,24 +24,39 @@ android:layout_height="match_parent">
             android:id="@+id/altistaArtista"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
-            android:textColor="#E4D7D7"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagenArtista" />
 
+        <TextView
+            android:id="@+id/cancioneTtop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:text="Canciones Top "
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/altistaArtista" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/thirdView"
-            android:layout_width="354dp"
-            android:layout_height="479dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="406dp"
+            android:layout_height="440dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
+
             android:nestedScrollingEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/altistaArtista" />
+            app:layout_constraintTop_toBottomOf="@+id/cancioneTtop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

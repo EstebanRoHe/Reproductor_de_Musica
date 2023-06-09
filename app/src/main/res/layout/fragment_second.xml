@@ -13,73 +13,96 @@ tools:context=".SecondFragment">
 
     <ImageView
         android:id="@+id/imagenAlbum"
-        android:layout_width="127dp"
-        android:layout_height="143dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="144dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/nombreAlbum"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenAlbum" />
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imagenAlbum"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/altistaAlbum"
         android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
+
+        android:textColor="#B5FDFDFD"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imagenAlbum"
         app:layout_constraintTop_toBottomOf="@+id/nombreAlbum" />
+
 
     <TextView
         android:id="@+id/fechaDelAlbum"
         android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/altistaAlbum" />
 
+        android:textColor="#B5FDFDFD"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imagenAlbum"
+        app:layout_constraintTop_toBottomOf="@+id/altistaAlbum" />
 
     <TextView
         android:id="@+id/genero"
         android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
+
+        android:textColor="#B5FDFDFD"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imagenAlbum"
         app:layout_constraintTop_toBottomOf="@+id/fechaDelAlbum" />
+
+    <TextView
+        android:id="@+id/encabezado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Canciones del álbum"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genero" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewFicha"
-        android:layout_width="394dp"
-        android:layout_height="364dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="402dp"
+        android:layout_height="395dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
+
         android:nestedScrollingEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genero" />
+        app:layout_constraintTop_toBottomOf="@+id/encabezado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

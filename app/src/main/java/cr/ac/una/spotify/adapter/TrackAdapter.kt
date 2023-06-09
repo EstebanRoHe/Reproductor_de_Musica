@@ -92,8 +92,8 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
             val imageUrl = track.album.images[0].url
             imagenImageView.load(imageUrl) {
             }
-            nombreTextView.text = "Canción : "+track.name
-            artistaTextView.text = "Artista : " + track.album.artists.joinToString(", ") { it.name }
+            nombreTextView.text = track.name
+            artistaTextView.text = track.album.artists.joinToString(", ") { it.name }
         }
     }
 }

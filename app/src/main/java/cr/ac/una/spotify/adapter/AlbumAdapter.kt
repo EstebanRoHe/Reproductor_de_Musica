@@ -54,7 +54,7 @@ class AlbumAdapter(var items: ArrayList<Item>) :
         val nombreTextView = itemView.findViewById<TextView>(R.id.cancionAlbum)
         val negro = Color.rgb(47, 48, 48)
         fun bind(item: Item) {
-            nombreTextView.text = " Canción : "+item.name
+            nombreTextView.text = item.name
 
         }
     }

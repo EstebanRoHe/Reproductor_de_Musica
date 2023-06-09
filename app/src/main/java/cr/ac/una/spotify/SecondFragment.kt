@@ -46,12 +46,10 @@ import cr.ac.una.spotify.viewModel.SpotifyViewModel
             val imagentext =  trackAlbum!!.album.images[0].url
             imagen.load(imagentext){
             }
-            nombre.text = " Álbum : "+trackAlbum.album.name
-            nombreArtista.text  = " Artista : " + trackAlbum.album.artists.joinToString(", ") { it.name }
-            fecha.text = " Publicacion : "+trackAlbum.album.release_date
-            genero.text = " Género : Egg punk, Noise rock, Pop"
-
-
+            nombre.text = trackAlbum.album.name
+            nombreArtista.text  =  trackAlbum.album.artists.joinToString(", ") { it.name }
+            fecha.text = trackAlbum.album.release_date
+            genero.text = "Egg punk, Noise rock, Pop"
 
             spotifyViewModel = ViewModelProvider(this).get(SpotifyViewModel::class.java)
             val listView = view.findViewById<RecyclerView>(R.id.viewFicha)
@@ -62,8 +60,6 @@ import cr.ac.una.spotify.viewModel.SpotifyViewModel
             listView.layoutManager = LinearLayoutManager(requireContext())
             spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
             spotifyViewModel.searchAlbums(trackAlbum.album.id)
-           // println("!!! Id del artista !!!!! "+ trackAlbum.album.artists[0].id)
-            println("!!! Id del artista !!!!! "+ trackAlbum.album.artists.joinToString(", ") { it.id })
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
                  spotifyViewModel.albums.observe(viewLifecycleOwner){

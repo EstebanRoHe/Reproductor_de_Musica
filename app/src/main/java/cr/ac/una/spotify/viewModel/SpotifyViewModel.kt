@@ -1,14 +1,17 @@
 package cr.ac.una.spotify.viewModel
 
+import android.content.Context
 import android.util.Base64
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.*
+import cr.ac.una.spotify.dao.BusquedaDAO
 import cr.ac.una.spotify.dao.SpotifyService
+import cr.ac.una.spotify.db.AppDatabase
 import cr.ac.una.spotify.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,10 +19,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import java.util.*
 
 
 class SpotifyViewModel : ViewModel() {
-
+    private lateinit var busquedaDAO: BusquedaDAO
     private val _track: MutableLiveData<List<Track>> = MutableLiveData()
     val traks: LiveData<List<Track>> = _track
     private val _album: MutableLiveData<List<Item>> = MutableLiveData()
@@ -29,7 +33,30 @@ class SpotifyViewModel : ViewModel() {
 
     private val _artist: MutableLiveData<List<ImagenResponse>> = MutableLiveData()
     val imagenes: LiveData<List<ImagenResponse>> = _artist
+    fun insertEntity(cancion: String, context : Context) {
+        busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
+        val entity = Busqueda(null,cancion, Date())
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                busquedaDAO.insert(entity)
+            }
+        }
+    }
 
+    fun busqueda(cancion: String, context : Context) {
+        busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+               val recorrer =busquedaDAO.getAll(cancion)
+                /*recorrer.forEach { element ->
+                    println( "id"+element.id)
+                    println("busqueda"+ element.busqueda)
+                    println("fecha"+ element.fecha)
+
+                }*/
+            }
+        }
+    }
 
     private val spotifyServiceToken: SpotifyService by lazy {
         val retrofit = Retrofit.Builder()
@@ -79,7 +106,6 @@ class SpotifyViewModel : ViewModel() {
                                     val artistList = mutableListOf<ImagenResponse>()
                                     if (artistResponse != null && artistResponse.images.isNotEmpty() ) {
                                         artistList.add(artistResponse)
-                                        println("urllll : "+artistResponse.images[0].url)
                                         _artist.postValue(artistList)
 
                                     } else {
@@ -335,6 +361,8 @@ class SpotifyViewModel : ViewModel() {
         println("error !!!!"+ errorMessage)
         //  Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
     }
+
+
 
 
 }

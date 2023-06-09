@@ -8,24 +8,12 @@
 
     <ImageView
         android:id="@+id/imagen"
-        android:layout_width="127dp"
-        android:layout_height="143dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="117dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/nombre"
-        android:layout_width="254dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imagen"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--TextView
@@ -42,16 +30,32 @@
         app:layout_constraintTop_toBottomOf="@+id/nombre" /-->
 
     <TextView
-        android:id="@+id/artista"
-        android:layout_width="194dp"
-        android:layout_height="41dp"
+        android:id="@+id/nombre"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#E4D7D7"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imagen"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/artista"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
         android:text=""
         android:textColor="#E4D7D7"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagen"
         app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
@@ -73,13 +77,12 @@
         android:id="@+id/info"
         style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
         android:layout_width="54dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#BAE1D8D8"
-        android:text="..."
+        android:text=":::"
         android:textColor="#FDFDFD"
-        android:textSize="30dp"
+        android:textSize="40sp"
         app:iconSize="30dp"
         app:iconTint="#DDD3D3"
         app:layout_constraintStart_toEndOf="@+id/artista"

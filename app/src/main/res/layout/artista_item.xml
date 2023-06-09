@@ -3,57 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#A4252525">
+    android:layout_height="wrap_content">
+    <!--android:background="#A4252525"-->
     <!--android:background="#2F3030"-->
 
     <ImageView
         android:id="@+id/imagenTop"
-        android:layout_width="127dp"
-        android:layout_height="143dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nombreAlbumTop"
-        android:layout_width="229dp"
-        android:layout_height="38dp"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:textColor="#E4D7D7"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagenTop"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nombreArtistaTop"
-        android:layout_width="229dp"
-        android:layout_height="50dp"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text=""
         android:textColor="#E4D7D7"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagenTop"
         app:layout_constraintTop_toBottomOf="@+id/nombreAlbumTop" />
 
     <TextView
         android:id="@+id/popularidadTop"
-        android:layout_width="194dp"
-        android:layout_height="41dp"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif"
         android:text=""
         android:textColor="#E4D7D7"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imagenTop"
         app:layout_constraintTop_toBottomOf="@+id/nombreArtistaTop" />
 
