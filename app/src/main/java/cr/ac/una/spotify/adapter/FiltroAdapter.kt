@@ -34,17 +34,6 @@ class FiltroAdapter( var busquedas: ArrayList<Busqueda> ) :
             VIEW_TYPE_ITEM
         }
     }
-    /*
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = busquedas[position]
-        if (holder is ViewHolder) {
-            val BusquedasItem = item
-            holder.bind(BusquedasItem)
-        }
-
-    }
-
-     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = busquedas[position]
         if (holder is ViewHolder) {
@@ -72,6 +61,4 @@ class FiltroAdapter( var busquedas: ArrayList<Busqueda> ) :
         }
 
     }
-
-
     }

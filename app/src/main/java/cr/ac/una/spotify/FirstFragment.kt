@@ -41,8 +41,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
-
-
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
@@ -59,6 +57,10 @@ class FirstFragment : Fragment() {
     private val filterViewMaxHeight by lazy {
         resources.getDimensionPixelSize(R.dimen.filter_view_max_height)
     }
+    private val filterViewFalseHeight by lazy {
+        resources.getDimensionPixelSize(R.dimen.filter_view_false_height)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +74,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val txtCancion = binding.cancion
+
 
         val listView = binding.listView
         val filterView = binding.filtroView
@@ -90,6 +93,7 @@ class FirstFragment : Fragment() {
         filterView.layoutManager = LinearLayoutManager(requireContext())
 
 
+
         spotifyViewModel = ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
         tracks = mutableListOf<Track>()
         val adapter = TrackAdapter(tracks as ArrayList<Track>, spotifyViewModel)
@@ -109,129 +113,54 @@ class FirstFragment : Fragment() {
                 spotifyViewModel.busquedas.observe(viewLifecycleOwner) { elementos ->
                     adapterFiltro.updateData(elementos as ArrayList<Busqueda>)
                     busquedas = elementos
-
-                    // Ajustar altura del filterView según la cantidad de elementos
                     val layoutParams = filterView.layoutParams
-                    layoutParams.height = if (elementos.size > 6) filterViewMaxHeight else filterViewMinHeight
+                    if(cancion == ""){
+                        filterView.visibility = View.GONE
+                    }
+                   else if (elementos.size > 6) {
+                        layoutParams.height = filterViewMaxHeight
+                        filterView.visibility = View.VISIBLE
+                    } else if(elementos.size == 0 ){
+                        //layoutParams.height = filterViewFalseHeight
+                        filterView.visibility = View.GONE
+                    }
+                    else {
+                        layoutParams.height = filterViewMinHeight
+                        filterView.visibility = View.VISIBLE
+                    }
                     filterView.layoutParams = layoutParams
                 }
-                if (cancion.length > 5) {
+
+                if (cancion.length > 4) {
                     spotifyViewModel.obtenerBusqueda(cancion, requireContext())
                     filterView.visibility = View.VISIBLE
-                } else {
+                }
+                else {
                     filterView.visibility = View.GONE
                 }
+
             }
         })
-
-
-        adapterFiltro.setOnItemClickListener { busqueda ->
-            txtCancion.setText(busqueda.busqueda)
-            println("Id " + busqueda.id)
-        }
-
-        binding.Buscar.setOnClickListener {
-            val cancion = txtCancion.text.toString()
-            spotifyViewModel.searchTracks(cancion)
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
-            spotifyViewModel.traks.observe(viewLifecycleOwner) { elementos ->
-                adapter.updateData(elementos as ArrayList<Track>)
-                tracks = elementos
-            }
-            spotifyViewModel.insertEntity(cancion, requireContext())
-            filterView.visibility = View.GONE
-            listView.visibility = View.VISIBLE
-            txtCancion.setText("")
-        }
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
-
-/*
-class FirstFragment : Fragment() {
-
-    private var _binding: FragmentFirstBinding? = null
-    private lateinit var spotifyViewModel: SpotifyViewModel
-    private lateinit var busquedaDAO: BusquedaDAO
-    private lateinit var tracks: List<Track>
-    private lateinit var busquedas: List<Busqueda>
-    private lateinit var adapterFiltro: FiltroAdapter
-
-    private val binding get() = _binding!!
-    private val filterViewMinHeight = resources.getDimensionPixelSize(R.dimen.filter_view_min_height)
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        busquedaDAO = AppDatabase.getInstance(requireContext()).busquedaDao()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val txtCancion = view.findViewById<EditText>(R.id.cancion)
-
-        val listView = view.findViewById<RecyclerView>(R.id.list_view)
-        val filterView = view.findViewById<RecyclerView>(R.id.filtro_view)
-        val layoutParams = filterView.layoutParams
-        layoutParams.height = filterViewMinHeight
-        filterView.layoutParams = layoutParams
-
-        val filterViewMargin = resources.getDimensionPixelSize(R.dimen.fab_margin)
-        val filterViewParams = filterView.layoutParams as ViewGroup.MarginLayoutParams
-        filterViewParams.setMargins(filterViewMargin, filterViewMargin, filterViewMargin, filterViewMargin)
-        filterView.layoutParams = filterViewParams
-
-        busquedas = mutableListOf<Busqueda>()
-        adapterFiltro = FiltroAdapter(busquedas as ArrayList<Busqueda>)
-        filterView.adapter = adapterFiltro
-        filterView.layoutManager = LinearLayoutManager(requireContext())
-
-
-        spotifyViewModel = ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
-        tracks = mutableListOf<Track>()
-        val adapter = TrackAdapter(tracks as ArrayList<Track>, spotifyViewModel)
-        listView.adapter = adapter
-        listView.layoutManager = LinearLayoutManager(requireContext())
-
-
-        txtCancion.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val cancion = s.toString()
-                spotifyViewModel.busquedas.observe(viewLifecycleOwner) { elementos ->
-                    adapterFiltro.updateData(elementos as ArrayList<Busqueda>)
-                    busquedas = elementos
-                }
-                if (cancion.length > 5) {
-                    spotifyViewModel.obtenerBusqueda(cancion, requireContext())
-                    filterView.visibility = View.VISIBLE // Mostrar filterView
-                } else {
-                    filterView.visibility = View.GONE // Ocultar filterView si no se cumple la condición
-                }
-            }
-        })
-
 
         adapterFiltro.setOnItemClickListener {
                 busqueda ->
-            txtCancion.setText(busqueda.busqueda)
-            println("Id " + busqueda.id)
+            val cancionBusqueda = busqueda.busqueda
+           // txtCancion.setText(busqueda.busqueda)
+            spotifyViewModel.searchTracks(cancionBusqueda)
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            spotifyViewModel.traks.observe(viewLifecycleOwner) { elementos ->
+                adapter.updateData(elementos as ArrayList<Track>)
+                tracks = elementos
+            }
+            spotifyViewModel.insertEntity(cancionBusqueda, requireContext())
+            filterView.visibility = View.GONE
+            listView.visibility = View.VISIBLE
+            txtCancion.setText("")
+
+
         }
+
 
         binding.Buscar.setOnClickListener {
             val cancion = txtCancion.text.toString()
@@ -255,8 +184,9 @@ class FirstFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
+
+
 }
-
- */
-
-
