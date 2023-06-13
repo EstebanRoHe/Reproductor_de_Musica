@@ -31,12 +31,11 @@ class SpotifyViewModel : ViewModel() {
     val topSongs: LiveData<List<topSong>> = _topSong
     private val _artist: MutableLiveData<List<ImagenResponse>> = MutableLiveData()
     val imagenes: LiveData<List<ImagenResponse>> = _artist
-
     private val _busqueda: MutableLiveData<List<Busqueda>> = MutableLiveData()
     val busquedas: LiveData<List<Busqueda>> = _busqueda
-
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
+    private var currentUrl : String? = null
     fun insertEntity(cancion: String, context : Context) {
         busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
         val entity = Busqueda(null,cancion, Date())
@@ -68,6 +67,7 @@ class SpotifyViewModel : ViewModel() {
 
 
     fun playSong(url : String){
+        currentUrl = url
         mediaPlayer = MediaPlayer()
         mediaPlayer?.setDataSource(url)
         mediaPlayer?.setOnPreparedListener { mp ->
@@ -86,10 +86,16 @@ class SpotifyViewModel : ViewModel() {
     }
 
     fun playPlayer(url: String){
-        if(isPlaying){
+
+        if(currentUrl != url) {
             stopSong()
-        }else{
             playSong(url)
+        }else{
+            if (isPlaying) {
+                stopSong()
+            } else {
+                playSong(url)
+            }
         }
     }
 
