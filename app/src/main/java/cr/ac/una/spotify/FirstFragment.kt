@@ -62,13 +62,11 @@ class FirstFragment : Fragment() {
 
         val txtCancion = view.findViewById<EditText>(R.id.cancion)
         val listView = view.findViewById<RecyclerView>(R.id.list_view)
-
+        spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
         tracks = mutableListOf<Track>()
-        val adapter = TrackAdapter(tracks  as ArrayList<Track>)
+        val adapter = TrackAdapter(tracks  as ArrayList<Track>, spotifyViewModel)
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(requireContext())
-        spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
-
 
         binding.Buscar.setOnClickListener {
 
@@ -85,7 +83,7 @@ class FirstFragment : Fragment() {
             }
 
             spotifyViewModel.insertEntity(cancion,requireContext())
-            spotifyViewModel.busqueda("1",requireContext())
+           // spotifyViewModel.busqueda("1",requireContext())
 
 
         }

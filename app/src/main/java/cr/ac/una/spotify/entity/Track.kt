@@ -8,5 +8,7 @@ data class Track (
     val name: String,
     val album: Album,
     val uri: String,
+    val preview_url : String
+
 
     ): Parcelable

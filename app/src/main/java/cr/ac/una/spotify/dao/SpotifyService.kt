@@ -38,11 +38,4 @@ interface SpotifyService {
       ): Call<ImagenResponse>
 
 
-/*
-    @GET("v1/artists/{id}")
-    fun searchArtist(
-        @Header("Authorization") authorization: String,
-        @Path("id") id: String
-    ): Call<Artista>
-*/
 }

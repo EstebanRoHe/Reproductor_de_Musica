@@ -18,8 +18,9 @@ import coil.load
 
 import cr.ac.una.spotify.R
 import cr.ac.una.spotify.entity.Track
+import cr.ac.una.spotify.viewModel.SpotifyViewModel
 
-class TrackAdapter(var tracks: ArrayList<Track>) :
+class TrackAdapter(var tracks: ArrayList<Track>, private val spotifyViewModel: SpotifyViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
@@ -35,10 +36,14 @@ class TrackAdapter(var tracks: ArrayList<Track>) :
             VIEW_TYPE_ITEM
         }
     }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = tracks[position]
         if (holder is ViewHolder) {
-            val personasItem = item // Restar 1 para compensar el encabezado
+            val personasItem = item
+            holder.imagenImageView.setOnClickListener(){
+                spotifyViewModel.playPlayer(personasItem.preview_url)
+            }
             holder.bind(personasItem)
         }
     }

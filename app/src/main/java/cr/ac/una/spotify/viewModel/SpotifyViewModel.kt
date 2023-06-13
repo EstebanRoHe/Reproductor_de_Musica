@@ -1,6 +1,7 @@
 package cr.ac.una.spotify.viewModel
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.util.Base64
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
@@ -30,9 +31,11 @@ class SpotifyViewModel : ViewModel() {
     val albums: LiveData<List<Item>> = _album
     private val _topSong: MutableLiveData<List<topSong>> = MutableLiveData()
     val topSongs: LiveData<List<topSong>> = _topSong
-
     private val _artist: MutableLiveData<List<ImagenResponse>> = MutableLiveData()
     val imagenes: LiveData<List<ImagenResponse>> = _artist
+
+    private var mediaPlayer: MediaPlayer? = null
+    private var isPlaying = false
     fun insertEntity(cancion: String, context : Context) {
         busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
         val entity = Busqueda(null,cancion, Date())
@@ -42,19 +45,42 @@ class SpotifyViewModel : ViewModel() {
             }
         }
     }
-
+/*
     fun busqueda(cancion: String, context : Context) {
         busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                val recorrer =busquedaDAO.getAll(cancion)
-                /*recorrer.forEach { element ->
-                    println( "id"+element.id)
-                    println("busqueda"+ element.busqueda)
-                    println("fecha"+ element.fecha)
 
-                }*/
             }
+        }
+    }
+
+ */
+
+    fun playSong(url : String){
+        mediaPlayer = MediaPlayer()
+        mediaPlayer?.setDataSource(url)
+        mediaPlayer?.setOnPreparedListener { mp ->
+            mp.start()
+            isPlaying = true
+        }
+        mediaPlayer?.prepareAsync()
+    }
+
+    fun stopSong(){
+        mediaPlayer?.stop()
+        mediaPlayer?.reset()
+        mediaPlayer?.release()
+        mediaPlayer = null
+        isPlaying = false
+    }
+
+    fun playPlayer(url: String){
+        if(isPlaying){
+            stopSong()
+        }else{
+            playSong(url)
         }
     }
 
