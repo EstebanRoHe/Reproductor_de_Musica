@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="filter_view_min_height">64dp</dimen>
+    <dimen name="filter_view_max_height">196dp</dimen>
+
 </resources>

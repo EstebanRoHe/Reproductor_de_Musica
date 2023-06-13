@@ -10,10 +10,8 @@ interface BusquedaDAO {
     @Insert
     fun insert(entity: Busqueda)
 
-    @Query("SELECT * FROM busqueda WHERE busqueda LIKE '%' || :searchString || '%'")
+    @Query("SELECT * FROM busqueda WHERE busqueda LIKE '%' || :searchString || '%' ORDER BY fecha DESC")
     fun getAll(searchString: String): List<Busqueda>?
 
-    @Query("SELECT * FROM busqueda ORDER BY fecha DESC")
-    fun getRecentSearches(): List<Busqueda>?
 
 }

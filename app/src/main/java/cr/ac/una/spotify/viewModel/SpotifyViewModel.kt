@@ -9,10 +9,7 @@ import cr.ac.una.spotify.dao.BusquedaDAO
 import cr.ac.una.spotify.dao.SpotifyService
 import cr.ac.una.spotify.db.AppDatabase
 import cr.ac.una.spotify.entity.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +22,7 @@ import java.util.*
 
 class SpotifyViewModel : ViewModel() {
     private lateinit var busquedaDAO: BusquedaDAO
+
     private val _track: MutableLiveData<List<Track>> = MutableLiveData()
     val traks: LiveData<List<Track>> = _track
     private val _album: MutableLiveData<List<Item>> = MutableLiveData()
@@ -33,6 +31,9 @@ class SpotifyViewModel : ViewModel() {
     val topSongs: LiveData<List<topSong>> = _topSong
     private val _artist: MutableLiveData<List<ImagenResponse>> = MutableLiveData()
     val imagenes: LiveData<List<ImagenResponse>> = _artist
+
+    private val _busqueda: MutableLiveData<List<Busqueda>> = MutableLiveData()
+    val busquedas: LiveData<List<Busqueda>> = _busqueda
 
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
@@ -45,18 +46,26 @@ class SpotifyViewModel : ViewModel() {
             }
         }
     }
-/*
-    fun busqueda(cancion: String, context : Context) {
-        busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-               val recorrer =busquedaDAO.getAll(cancion)
 
+
+    fun obtenerBusqueda(cancion: String, context : Context) {
+        busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
+        GlobalScope.launch(Dispatchers.Main) {
+            val busquedaList = withContext(Dispatchers.IO) {
+                busquedaDAO.getAll(cancion)
+            }
+            busquedaList?.let {
+                _busqueda.postValue(it)
+                it.forEach { element ->
+                  //  println("!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                   // println("Busqueda ${element.busqueda}")
+                   // println("Id ${element.id}")
+                   // println("fecha ${element.fecha}")
+                }
             }
         }
     }
 
- */
 
     fun playSong(url : String){
         mediaPlayer = MediaPlayer()
