@@ -85,9 +85,10 @@ class SpotifyViewModel : ViewModel() {
         isPlaying = false
     }
 
-    fun playPlayer(url: String){
-
-        if(currentUrl != url) {
+    fun playPlayer(url: String?){
+        if(url === null){
+            println("No tiene url")
+        } else if(currentUrl != url) {
             stopSong()
             playSong(url)
         }else{
@@ -358,6 +359,7 @@ class SpotifyViewModel : ViewModel() {
                                                 cancion?.let{
                                                     albumList.add(it)
                                                 }
+                                               println("URL EN EL METODO : "+cancion.preview_url)
 
                                                _album.postValue(albumList)
                                             }
@@ -393,7 +395,6 @@ class SpotifyViewModel : ViewModel() {
     }
 
 
-
     private fun displayTrackInfo( trackName: String, artistName: String) {
         val message = "Canción encontrada: $trackName - $artistName"
         //  Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -403,78 +404,7 @@ class SpotifyViewModel : ViewModel() {
         //  Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-
-
-
 }
 
 
-/*
-    fun searchImagen(query: String): LiveData<List<ImagenResponse>> {
-        val clientId = "f13969da015a4f49bb1f1edef2185d4e"
-        val clientSecret = "e3077426f4714315937111d5e82cd918"
-        val base64Auth = Base64.encodeToString("$clientId:$clientSecret".toByteArray(), Base64.NO_WRAP)
-
-        val tokenRequest = spotifyServiceToken.getAccessToken(
-            "Basic $base64Auth",
-            "client_credentials"
-        )
-
-        tokenRequest.enqueue(object : Callback<AccessTokenResponse> {
-            override fun onResponse(
-                call: Call<AccessTokenResponse>,
-                response: Response<AccessTokenResponse>
-            ) {
-
-                if (response.isSuccessful) {
-                    try {
-                        val accessTokenResponse = response.body()
-                        val accessToken = accessTokenResponse?.accessToken
-
-                        if (accessToken != null) {
-                            val searchRequestAlbum = spotifyService.searchArtis("Bearer $accessToken",query )
-                            searchRequestAlbum.enqueue(object : Callback<ImagenResponse> {
-                                override fun onResponse(
-                                    call: Call<ImagenResponse>,
-                                    response: Response<ImagenResponse>
-                                ) {
-                                    if (response.isSuccessful) {
-                                        val artistResponse = response.body()
-                                        val artistList = mutableListOf<ImagenResponse>()
-
-                                        if (artistResponse != null) {
-
-                                        }
-                                        _artist.postValue(artistList)
-                                    } else {
-                                        System.out.println("Mensaje:    " + response.raw())
-                                        displayErrorMessage("Error en la respuesta del servidor.")
-                                    }
-
-                                }
-                                override fun onFailure(call: Call<ImagenResponse>, t: Throwable) {
-                                    displayErrorMessage("Error en la solicitud de búsqueda.")
-                                }
-                            })
-                        } else {
-                            displayErrorMessage("Error al obtener el accessToken.")
-                        }
-                    } catch (e: Exception) {
-                        displayErrorMessage("Error durante el procesamiento de la respuesta: ${e.message}")
-                    }
-                } else {
-                    displayErrorMessage("Error en la respuesta del servidor.")
-                }
-            }
-
-            override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                displayErrorMessage("Error en la solicitud de accessToken.")
-            }
-        })
-
-        return imagenes
-    }
-
-
- */
 

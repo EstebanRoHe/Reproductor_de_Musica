@@ -51,14 +51,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_view"
             android:layout_width="395dp"
-            android:layout_height="610dp"
+            android:layout_height="585dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:nestedScrollingEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filtro_view"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/filtro_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

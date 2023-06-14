@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class topSong (
     val album : albumTop,
     val popularity : Int,
-    val artists : List<Artista>
+    val artists : List<Artista>,
+    val preview_url : String
 ):Parcelable

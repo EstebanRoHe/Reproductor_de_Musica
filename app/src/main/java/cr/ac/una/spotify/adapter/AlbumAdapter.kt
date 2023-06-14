@@ -15,9 +15,10 @@ import coil.load
 import cr.ac.una.spotify.R
 import cr.ac.una.spotify.entity.Item
 import cr.ac.una.spotify.entity.Track
+import cr.ac.una.spotify.viewModel.SpotifyViewModel
 
 
-class AlbumAdapter(var items: ArrayList<Item>) :
+class AlbumAdapter(var items: ArrayList<Item>,private val spotifyViewModel: SpotifyViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
@@ -37,6 +38,9 @@ class AlbumAdapter(var items: ArrayList<Item>) :
         val item = items[position]
         if (holder is ViewHolder) {
             val CancionItem = item
+            holder.nombreTextView.setOnClickListener(){
+                spotifyViewModel.playPlayer(CancionItem.preview_url)
+            }
             holder.bind(CancionItem)
         }
     }

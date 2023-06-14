@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import cr.ac.una.spotify.R
 import cr.ac.una.spotify.entity.topSong
+import cr.ac.una.spotify.viewModel.SpotifyViewModel
 
-class ArtistaAdapter( var trackTops: ArrayList<topSong> ) :
+class ArtistaAdapter( var trackTops: ArrayList<topSong>,private val spotifyViewModel: SpotifyViewModel) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
@@ -31,6 +32,9 @@ class ArtistaAdapter( var trackTops: ArrayList<topSong> ) :
         val item = trackTops[position]
         if (holder is ViewHolder) {
             val CancionItem = item
+            holder.imagenTopView.setOnClickListener(){
+                spotifyViewModel.playPlayer(CancionItem.preview_url)
+            }
             holder.bind(CancionItem)
         }
     }

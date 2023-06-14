@@ -49,15 +49,15 @@ class ThirdFragment : Fragment() {
         track?.let {
 
         }
-
+        spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
         val listView = view.findViewById<RecyclerView>(R.id.thirdView)
         trackTops = mutableListOf<topSong>()
 
-        val adapter = ArtistaAdapter(trackTops  as ArrayList<topSong>)
+        val adapter = ArtistaAdapter(trackTops  as ArrayList<topSong>,spotifyViewModel )
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(requireContext())
 
-        spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
+
         var id = track!!.album.artists[0].id.toString()
 
         spotifyViewModel.searchArtist(id)

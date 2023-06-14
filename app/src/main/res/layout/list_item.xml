@@ -11,23 +11,11 @@
         android:layout_width="117dp"
         android:layout_height="117dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--TextView
-        android:id="@+id/album"
-        android:layout_width="254dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
-        android:text=""
-        android:textColor="#E4D7D7"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imagen"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" /-->
 
     <TextView
         android:id="@+id/nombre"
@@ -37,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif"
-        android:textColor="#E4D7D7"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +38,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
         android:text=""
         android:textColor="#E4D7D7"
@@ -59,36 +47,25 @@
         app:layout_constraintStart_toEndOf="@+id/imagen"
         app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
-    <!--androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.02" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="nombre" /-->
 
     <Button
         android:id="@+id/info"
         style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-        android:layout_width="54dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="42dp"
+        android:layout_height="40.5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#BAE1D8D8"
-        android:text=":::"
-        android:textColor="#FDFDFD"
+        android:text="iii"
+        android:textColor="#FFFFFF"
         android:textSize="40sp"
         app:iconSize="30dp"
         app:iconTint="#DDD3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/artista"
         app:layout_constraintTop_toBottomOf="@+id/nombre"
         app:rippleColor="#FAF6F6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--app:icon="@android:drawable/ic_menu_info_details"-->
+
