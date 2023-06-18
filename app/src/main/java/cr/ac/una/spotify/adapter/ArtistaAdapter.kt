@@ -32,8 +32,13 @@ class ArtistaAdapter( var trackTops: ArrayList<topSong>,private val spotifyViewM
         val item = trackTops[position]
         if (holder is ViewHolder) {
             val CancionItem = item
+            val url = CancionItem.preview_url
             holder.imagenTopView.setOnClickListener(){
-                spotifyViewModel.playPlayer(CancionItem.preview_url)
+                if (url != null) {
+                    spotifyViewModel.playPlayer(url)
+                }else{
+                    println("No tiene url para reproducir ")
+                }
             }
             holder.bind(CancionItem)
         }

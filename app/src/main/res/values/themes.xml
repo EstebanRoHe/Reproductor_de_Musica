@@ -3,8 +3,11 @@
     <style name="Base.Theme.Spotify" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#323131</item>
     </style>
 
-      <style name="Theme.Spotify" parent="Base.Theme.Spotify" />
+      <style name="Theme.Spotify" parent="Base.Theme.Spotify"/>
+
+
 
  </resources>

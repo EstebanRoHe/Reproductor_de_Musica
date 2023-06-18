@@ -51,7 +51,6 @@ import cr.ac.una.spotify.viewModel.SpotifyViewModel
             fecha.text = trackAlbum.album.release_date
             genero.text = "Egg punk, Noise rock, Pop"
 
-           // spotifyViewModel = ViewModelProvider(this).get(SpotifyViewModel::class.java)
             spotifyViewModel= ViewModelProvider(requireActivity()).get(SpotifyViewModel::class.java)
             val listView = view.findViewById<RecyclerView>(R.id.viewFicha)
 

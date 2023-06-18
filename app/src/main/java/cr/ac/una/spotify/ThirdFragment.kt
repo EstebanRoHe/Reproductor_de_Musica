@@ -66,7 +66,7 @@ class ThirdFragment : Fragment() {
             imagen.load(imageUrl)
         }
         nombreArtista.text = track.album.artists[0].name.toString()
-        spotifyViewModel.searchTops(id) //("0TnOYISbd1XYRBk9myaseg")
+        spotifyViewModel.searchTops(id)
         spotifyViewModel.topSongs.observe(viewLifecycleOwner){
                 elementos->
             adapter.updateData(elementos as ArrayList<topSong>)

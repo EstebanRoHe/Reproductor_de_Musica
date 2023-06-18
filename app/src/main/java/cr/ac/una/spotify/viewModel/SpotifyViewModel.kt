@@ -2,6 +2,7 @@ package cr.ac.una.spotify.viewModel
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.os.Handler
 import android.util.Base64
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
@@ -22,7 +23,6 @@ import java.util.*
 
 class SpotifyViewModel : ViewModel() {
     private lateinit var busquedaDAO: BusquedaDAO
-
     private val _track: MutableLiveData<List<Track>> = MutableLiveData()
     val traks: LiveData<List<Track>> = _track
     private val _album: MutableLiveData<List<Item>> = MutableLiveData()
@@ -33,9 +33,20 @@ class SpotifyViewModel : ViewModel() {
     val imagenes: LiveData<List<ImagenResponse>> = _artist
     private val _busqueda: MutableLiveData<List<Busqueda>> = MutableLiveData()
     val busquedas: LiveData<List<Busqueda>> = _busqueda
+    private val _isPlaying: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isPlaying: LiveData<Boolean> = _isPlaying
+    private val _relade: MutableLiveData<List<ArtistaRelated>> = MutableLiveData()
+    val relades: LiveData<List<ArtistaRelated>> = _relade
     private var mediaPlayer: MediaPlayer? = null
-    private var isPlaying = false
     private var currentUrl : String? = null
+    private val _currentPosition: MutableLiveData<Int> = MutableLiveData(0)
+    val currentPosition: LiveData<Int> = _currentPosition
+    private val _maxProgress: MutableLiveData<Int> = MutableLiveData()
+    val maxProgress: LiveData<Int> = _maxProgress
+    private var runnable: Runnable? = null
+    private val handler = Handler()
+
+
     fun insertEntity(cancion: String, context : Context) {
         busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
         val entity = Busqueda(null,cancion, Date())
@@ -46,7 +57,6 @@ class SpotifyViewModel : ViewModel() {
         }
     }
 
-
     fun obtenerBusqueda(cancion: String, context : Context) {
         busquedaDAO = AppDatabase.getInstance(context).busquedaDao()
         GlobalScope.launch(Dispatchers.Main) {
@@ -55,16 +65,9 @@ class SpotifyViewModel : ViewModel() {
             }
             busquedaList?.let {
                 _busqueda.postValue(it)
-                it.forEach { element ->
-                  //  println("!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                   // println("Busqueda ${element.busqueda}")
-                   // println("Id ${element.id}")
-                   // println("fecha ${element.fecha}")
-                }
             }
         }
     }
-
 
     fun playSong(url : String){
         currentUrl = url
@@ -72,7 +75,9 @@ class SpotifyViewModel : ViewModel() {
         mediaPlayer?.setDataSource(url)
         mediaPlayer?.setOnPreparedListener { mp ->
             mp.start()
-            isPlaying = true
+            _isPlaying.postValue(true)
+            _currentPosition.postValue(0)
+            handler.postDelayed(updatePositionRunnable, 1000)
         }
         mediaPlayer?.prepareAsync()
     }
@@ -82,20 +87,83 @@ class SpotifyViewModel : ViewModel() {
         mediaPlayer?.reset()
         mediaPlayer?.release()
         mediaPlayer = null
-        isPlaying = false
+        _isPlaying.postValue(false)
+        _currentPosition.postValue(0)
+        handler.removeCallbacks(updatePositionRunnable)
+    }
+
+    fun stopRunable(){
+        mediaPlayer = null
+        _isPlaying.postValue(false)
+        _currentPosition.value = 0
+        handler.removeCallbacks(updatePositionRunnable)
+    }
+
+    fun pauseSong() {
+        if (mediaPlayer?.isPlaying == true) {
+            mediaPlayer?.pause()
+            handler.removeCallbacks(updatePositionRunnable)
+        } else {
+            mediaPlayer?.start()
+            handler.postDelayed(updatePositionRunnable, 1000)
+        }
+    }
+
+    fun pruebaTouch(seg : Int){
+        mediaPlayer!!.seekTo(seg * 1000)
+        _currentPosition.value = seg
     }
 
     fun playPlayer(url: String?){
         if(url === null){
             println("No tiene url")
-        } else if(currentUrl != url) {
+        }
+        else if(currentUrl != url) {
             stopSong()
             playSong(url)
         }else{
-            if (isPlaying) {
-                stopSong()
-            } else {
+            if (_isPlaying.value!!) {
+                pauseSong()
+            }else {
                 playSong(url)
+            }
+        }
+    }
+
+    fun adelantar(url : String) {
+        if (mediaPlayer != null && url != null) {
+
+            if (_currentPosition.value!! + 5 < mediaPlayer!!.duration) {
+                _currentPosition.value = _currentPosition.value!! + 5
+                val currentPrueba = mediaPlayer!!.currentPosition
+                val prueba = currentPrueba + 5000
+                mediaPlayer!!.seekTo(prueba)
+            }
+        }
+    }
+
+    fun retroceder(url : String) {
+        if (mediaPlayer != null && url != null) {
+            if (_currentPosition.value!! - 5 > 0) {
+                _currentPosition.value = _currentPosition.value!! - 5
+                val currentPrueba = mediaPlayer!!.currentPosition
+                val prueba = currentPrueba - 5000
+                mediaPlayer!!.seekTo(prueba)
+            }else {
+                _currentPosition.postValue(0)
+                mediaPlayer!!.seekTo(_currentPosition.value!!)
+
+            }
+        }
+    }
+
+    private val updatePositionRunnable = object : Runnable {
+        override fun run() {
+
+            if (_isPlaying.value == true) {
+                val seconds = _currentPosition.value!! / 1000
+                _currentPosition.value = _currentPosition.value!! + 1
+                handler.postDelayed(this, 1000)
             }
         }
     }
@@ -108,6 +176,7 @@ class SpotifyViewModel : ViewModel() {
 
         retrofit.create(SpotifyService::class.java)
     }
+
     private val spotifyService: SpotifyService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.spotify.com/")
@@ -137,7 +206,7 @@ class SpotifyViewModel : ViewModel() {
                     val accessToken = accessTokenResponse?.accessToken
 
                     if (accessToken != null) {
-                        val searchRequest = spotifyService.searchArtis("Bearer $accessToken", query)
+                        val searchRequest = spotifyService.searchArtis("Bearer $accessToken", query,"CA")
                         searchRequest.enqueue(object : Callback<ImagenResponse> {
                             override fun onResponse(
                                 call: Call<ImagenResponse>,
@@ -182,7 +251,6 @@ class SpotifyViewModel : ViewModel() {
         return imagenes
     }
 
-
     fun searchTops(query: String): LiveData<List<topSong>> {
         val clientId = "f13969da015a4f49bb1f1edef2185d4e"
         val clientSecret = "e3077426f4714315937111d5e82cd918"
@@ -220,7 +288,6 @@ class SpotifyViewModel : ViewModel() {
                                                 cancionTop?.let{
                                                     topList.add(it)
                                                 }
-
 
                                             }
                                             _topSong.postValue(topList)
@@ -275,7 +342,7 @@ class SpotifyViewModel : ViewModel() {
                     val accessToken = accessTokenResponse?.accessToken
 
                     if (accessToken != null) {
-                        val searchRequest = spotifyService.searchTrack("Bearer $accessToken", query)
+                        val searchRequest = spotifyService.searchTrack("Bearer $accessToken", query,"CA")
                         searchRequest.enqueue(object : Callback<TrackResponse> {
                             override fun onResponse(
                                 call: Call<TrackResponse>,
@@ -322,6 +389,7 @@ class SpotifyViewModel : ViewModel() {
 
         return traks
     }
+
     fun searchAlbums(query: String): LiveData<List<Item>> {
         val clientId = "f13969da015a4f49bb1f1edef2185d4e"
         val clientSecret = "e3077426f4714315937111d5e82cd918"
@@ -344,7 +412,7 @@ class SpotifyViewModel : ViewModel() {
                         val accessToken = accessTokenResponse?.accessToken
 
                         if (accessToken != null) {//"2256qKBSQdt53T5dz4Kdcs"
-                            val searchRequestAlbum = spotifyService.searchAlbum("Bearer $accessToken", query)
+                            val searchRequestAlbum = spotifyService.searchAlbum("Bearer $accessToken", query,"CA")
                             searchRequestAlbum.enqueue(object : Callback<AlbumResponse> {
                                 override fun onResponse(
                                     call: Call<AlbumResponse>,
@@ -359,7 +427,6 @@ class SpotifyViewModel : ViewModel() {
                                                 cancion?.let{
                                                     albumList.add(it)
                                                 }
-                                               println("URL EN EL METODO : "+cancion.preview_url)
 
                                                _album.postValue(albumList)
                                             }
@@ -394,11 +461,81 @@ class SpotifyViewModel : ViewModel() {
         return albums
     }
 
+    fun searchRelate(query: String) : LiveData<List<ArtistaRelated>>{
+        val clientId = "f13969da015a4f49bb1f1edef2185d4e"
+        val clientSecret = "e3077426f4714315937111d5e82cd918"
+        val base64Auth = Base64.encodeToString("$clientId:$clientSecret".toByteArray(), Base64.NO_WRAP)
+
+        val tokenRequest = spotifyServiceToken.getAccessToken(
+            "Basic $base64Auth",
+            "client_credentials"
+        )
+
+        tokenRequest.enqueue(object : Callback<AccessTokenResponse> {
+            override fun onResponse(
+                call: Call<AccessTokenResponse>,
+                response: Response<AccessTokenResponse>
+            ) {
+
+                if (response.isSuccessful) {
+                    try {
+                        val accessTokenResponse = response.body()
+                        val accessToken = accessTokenResponse?.accessToken
+
+                        if (accessToken != null) {
+                            val searchRequestAlbum = spotifyService.searchArtisRelacionado("Bearer $accessToken",query)
+                            searchRequestAlbum.enqueue(object : Callback<ArtistaResponse> {
+                                override fun onResponse(
+                                    call: Call<ArtistaResponse>,
+                                    response: Response<ArtistaResponse>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val topResponse = response.body()
+                                        val topList = mutableListOf<ArtistaRelated>()
+                                        if (topResponse != null ) {
+                                            for (topSong in topResponse!!.artists) {
+                                                val cancionTop = topSong
+                                                cancionTop?.let{
+                                                    topList.add(it)
+                                                }
+                                            }
+                                            _relade.postValue(topList)
+                                        } else {
+                                            displayErrorMessage("No se encontraron álbumes.")
+                                        }
+
+                                    } else {
+                                        displayErrorMessage("Error en la respuesta del servidor.")
+                                    }
+                                }
+                                override fun onFailure(call: Call<ArtistaResponse>, t: Throwable) {
+                                    displayErrorMessage("Error en la solicitud de búsqueda.")
+                                }
+                            })
+                        } else {
+                            displayErrorMessage("Error al obtener el accessToken.")
+                        }
+                    } catch (e: Exception) {
+                        displayErrorMessage("Error durante el procesamiento de la respuesta: ${e.message}")
+                    }
+                } else {
+                    displayErrorMessage("Error en la respuesta del servidor.")
+                }
+            }
+
+            override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
+                displayErrorMessage("Error en la solicitud de accessToken.")
+            }
+        })
+
+        return relades
+    }
 
     private fun displayTrackInfo( trackName: String, artistName: String) {
         val message = "Canción encontrada: $trackName - $artistName"
         //  Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
     private fun displayErrorMessage( errorMessage: String) {
         println("error !!!!"+ errorMessage)
         //  Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()

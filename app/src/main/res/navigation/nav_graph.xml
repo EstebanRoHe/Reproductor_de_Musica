@@ -27,6 +27,20 @@
                 app:argType="cr.ac.una.spotify.entity.Track"/>
         </action>
 
+        <action
+            android:id="@+id/action_FirstFragment_to_reproductorFragment"
+            app:destination="@id/reproductorFragment" >
+
+        </action>
+
+        <action
+            android:id="@+id/action_FirstFragment_to_ArtistaFragment"
+            app:destination="@id/ArtistaFragment" >
+            <argument
+                android:name="track"
+                app:argType="cr.ac.una.spotify.entity.Track"/>
+        </action>
+
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -52,4 +66,34 @@
 
 
     </fragment>
+
+    <fragment
+        android:id="@+id/reproductorFragment"
+        android:name="cr.ac.una.spotify.Reproductor"
+        android:label="@string/reproductor"
+        tools:layout="@layout/fragment_reproductor">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_reproductorFragment"
+            app:destination="@id/FirstFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ArtistaFragment"
+        android:name="cr.ac.una.spotify.ArtistaFragment"
+        android:label="@string/artista_fragment_label"
+        tools:layout="@layout/fragment_artista">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_ArtistaFragment"
+            app:destination="@id/FirstFragment" />
+
+
+    </fragment>
+
 </navigation>
+
+
+

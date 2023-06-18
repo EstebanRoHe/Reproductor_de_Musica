@@ -15,13 +15,15 @@ interface SpotifyService {
     @GET("v1/search?type=track")
     fun searchTrack(
         @Header("Authorization") authorization: String,
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Query("market") market: String
     ): Call<TrackResponse>
 
       @GET("v1/albums/{albumId}/tracks")
       fun searchAlbum(
           @Header("Authorization") authorization: String,
-          @Path("albumId") albumId: String
+          @Path("albumId") albumId: String,
+          @Query("market") market: String
       ): Call<AlbumResponse>
 
       @GET("v1/artists/{id}/top-tracks")
@@ -34,8 +36,15 @@ interface SpotifyService {
       @GET("v1/artists/{id}")
       fun searchArtis(
           @Header("Authorization") authorization: String,
-          @Path("id") id: String
+          @Path("id") id: String,
+          @Query("market") market: String
       ): Call<ImagenResponse>
+
+    @GET("v1/artists/{id}/related-artists")
+    fun searchArtisRelacionado(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String
+    ): Call<ArtistaResponse>
 
 
 }

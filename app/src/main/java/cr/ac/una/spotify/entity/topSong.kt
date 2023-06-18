@@ -8,5 +8,5 @@ data class topSong (
     val album : albumTop,
     val popularity : Int,
     val artists : List<Artista>,
-    val preview_url : String
+    val preview_url : String?
 ):Parcelable

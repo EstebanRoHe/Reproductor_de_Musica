@@ -54,12 +54,22 @@ class FirstFragment : Fragment() {
     private val filterViewMinHeight by lazy {
         resources.getDimensionPixelSize(R.dimen.filter_view_min_height)
     }
+    private val filterViewMin2Height by lazy {
+        resources.getDimensionPixelSize(R.dimen.filter_view_min2_height)
+    }
+    private val filterViewMin3Height by lazy {
+        resources.getDimensionPixelSize(R.dimen.filter_view_min3_height)
+    }
+    private val filterViewMin4Height by lazy {
+        resources.getDimensionPixelSize(R.dimen.filter_view_min4_height)
+    }
+    private val filterViewMin5Height by lazy {
+        resources.getDimensionPixelSize(R.dimen.filter_view_min5_height)
+    }
     private val filterViewMaxHeight by lazy {
         resources.getDimensionPixelSize(R.dimen.filter_view_max_height)
     }
-    private val filterViewFalseHeight by lazy {
-        resources.getDimensionPixelSize(R.dimen.filter_view_false_height)
-    }
+
 
 
     override fun onCreateView(
@@ -116,17 +126,26 @@ class FirstFragment : Fragment() {
                     val layoutParams = filterView.layoutParams
                     if(cancion == ""){
                         filterView.visibility = View.GONE
-                    }
-                   else if (elementos.size > 6) {
-                        layoutParams.height = filterViewMaxHeight
-                        filterView.visibility = View.VISIBLE
-                    } else if(elementos.size == 0 ){
-                        //layoutParams.height = filterViewFalseHeight
-                        filterView.visibility = View.GONE
-                    }
-                    else {
+                    }else if(elementos.size == 1 ){
                         layoutParams.height = filterViewMinHeight
                         filterView.visibility = View.VISIBLE
+                    }else if(elementos.size == 2 ) {
+                        layoutParams.height = filterViewMin2Height
+                        filterView.visibility = View.VISIBLE
+                    }else if(elementos.size == 3 ) {
+                        layoutParams.height = filterViewMin3Height
+                        filterView.visibility = View.VISIBLE
+                    }else if(elementos.size == 4 ) {
+                        layoutParams.height = filterViewMin4Height
+                        filterView.visibility = View.VISIBLE
+                    }else if(elementos.size == 5 ) {
+                        layoutParams.height = filterViewMin5Height
+                        filterView.visibility = View.VISIBLE
+                    }else if (elementos.size > 5) {
+                        layoutParams.height = filterViewMaxHeight
+                        filterView.visibility = View.VISIBLE
+                    }else{
+                        filterView.visibility = View.GONE
                     }
                     filterView.layoutParams = layoutParams
                 }
@@ -145,7 +164,6 @@ class FirstFragment : Fragment() {
         adapterFiltro.setOnItemClickListener {
                 busqueda ->
             val cancionBusqueda = busqueda.busqueda
-           // txtCancion.setText(busqueda.busqueda)
             spotifyViewModel.searchTracks(cancionBusqueda)
             val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
@@ -178,15 +196,18 @@ class FirstFragment : Fragment() {
             txtCancion.setText("")
         }
 
-    }
+        spotifyViewModel.traks.observe(viewLifecycleOwner) { elementos ->
+            adapter.updateData(elementos as ArrayList<Track>)
+            tracks = elementos
+        }
 
+    }
+/*
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-
-
-
+ */
 
 }

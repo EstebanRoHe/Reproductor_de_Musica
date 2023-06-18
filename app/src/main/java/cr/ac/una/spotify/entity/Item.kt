@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Item (
        val href:String,
        val name : String,
-       val preview_url:String
+       val preview_url:String?
 ): Parcelable

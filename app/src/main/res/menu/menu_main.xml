@@ -13,4 +13,16 @@
         android:orderInCategory="100"
         android:title="@string/artista"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/artistaRelate"
+        android:orderInCategory="100"
+        android:title="@string/artistarelade"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/play"
+        android:orderInCategory="100"
+        android:title="@string/play"
+        app:showAsAction="never" />
 </menu>

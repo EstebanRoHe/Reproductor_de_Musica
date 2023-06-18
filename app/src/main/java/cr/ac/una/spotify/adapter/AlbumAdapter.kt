@@ -38,8 +38,13 @@ class AlbumAdapter(var items: ArrayList<Item>,private val spotifyViewModel: Spot
         val item = items[position]
         if (holder is ViewHolder) {
             val CancionItem = item
+            val url = CancionItem.preview_url
             holder.nombreTextView.setOnClickListener(){
-                spotifyViewModel.playPlayer(CancionItem.preview_url)
+                if (url != null) {
+                    spotifyViewModel.playPlayer(url)
+                }else{
+                    println("No tiene url para reproducir ")
+                }
             }
             holder.bind(CancionItem)
         }

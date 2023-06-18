@@ -40,11 +40,18 @@ class TrackAdapter(var tracks: ArrayList<Track>, private val spotifyViewModel: S
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = tracks[position]
         if (holder is ViewHolder) {
-            val personasItem = item
+            val cancionItem = item
+            val url = cancionItem.preview_url
             holder.imagenImageView.setOnClickListener(){
-                spotifyViewModel.playPlayer(personasItem.preview_url)
+                println("name : "+item.name)
+                if (url != null) {
+                    spotifyViewModel.playPlayer(url)
+                }else{
+                    //Toast.makeText(this, "Se agregó correctamente", Toast.LENGTH_SHORT).show()
+                    println("No tiene url para reproducir ")
+                }
             }
-            holder.bind(personasItem)
+            holder.bind(cancionItem)
         }
     }
     override fun getItemCount(): Int {
@@ -81,6 +88,22 @@ class TrackAdapter(var tracks: ArrayList<Track>, private val spotifyViewModel: S
                             }
                             R.id.artista -> {
                                 val action = R.id.action_FirstFragment_to_ThirdFragment
+                                val bundle = Bundle().apply {
+                                    putParcelable("track",track)
+                                }
+                                itemView.findNavController().navigate(action,bundle)
+                                true
+                            }
+                            R.id.artistaRelate -> {
+                                val action = R.id.action_FirstFragment_to_ArtistaFragment
+                                val bundle = Bundle().apply {
+                                    putParcelable("track",track)
+                                }
+                                itemView.findNavController().navigate(action,bundle)
+                                true
+                            }
+                            R.id.play -> {
+                                val action = R.id.action_FirstFragment_to_reproductorFragment
                                 val bundle = Bundle().apply {
                                     putParcelable("track",track)
                                 }
